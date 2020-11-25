@@ -49,7 +49,7 @@ OH SHIT!
 				console.log(e); // error in the above string (in this case, yes)!
 			}
 			if(msg.type == "status"){
-			if(msg.status == "connected"){socket.send(JSON.stringify( {"type":"data","data":{"cmd":"RefreshState"} ));
+			if(msg.status == "connected"){socket.send(JSON.stringify( {"type":"data","data":{"cmd":"RefreshState"}} ));
 						     }
 			}
 			if(msg.data != ""){
