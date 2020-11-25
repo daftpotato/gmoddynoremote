@@ -39,30 +39,24 @@ OH SHIT!
 	var socket = new WebSocket("wss://ws.extra.tools:9001");
 		socket.onopen = function (event) {
 			socket.send('{"type":"room","room":"6969"}'); 
+			socket.send(JSON.stringify( {"type":"data","data":{"cmd":"RefreshState"}} ));
 		};
 
 		socket.onmessage = function (e) {
 			var msg;
+			
 			try {
 				msg = JSON.parse(e.data);
 			} catch(e) {
 				console.log(e); // error in the above string (in this case, yes)!
 			}
 			if(msg.type == "status"){
-			if(msg.status == "connected"){socket.send(JSON.stringify( {"type":"data","data":{"cmd":"RefreshState"}} ));
-						     }
+			if(msg.status == "connected"){ 
 			}
-			if(msg.data != ""){
-				if( msg.data == "Stopped"){
-					document.getElementById("Start").disabled = true
-					document.getElementById("Stop").disabled = false
-					document.getElementById("Estop").disabled = false
-					 }
-					 if(msg.data == "Running"){document.getElementById("Start").disabled = false
-					document.getElementById("Stop").disabled = true
-					document.getElementById("Estop").disabled = true};
-				
-			//}
+						     console.log(msg.status)
+			}
+			
+
 			
 		}
 
