@@ -1,0 +1,128 @@
+
+<head>
+
+</head>
+<body>
+
+
+	<style>
+		.startbutton{
+  background-color: #4CAF50;
+  font-size: 50px;
+}
+		.stopbutton{
+  background-color: #eb3434;
+  font-size: 50px;
+}
+.estopbutton{
+  background-color: #eb3434;
+  font-size: 50px;
+}
+	</style>
+	<button id="Start" class="startbutton"  style="width: 100%; height: 25% ;"
+type="button">
+Start
+</button>
+
+<button id="Stop" class="stopbutton"  style=" width: 100%; height: 25% ;"
+type="button">
+Stop and display results
+</button>
+<button id="Estop" class="estopbutton" style=" width: 100%; height: 50% ;"
+type="button">
+OH SHIT!
+</button>
+ <div id="chart_div" style=" width: 100%; height: 25%;"></div>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+	var socket = new WebSocket("wss://ws.extra.tools:9001");
+		socket.onopen = function (event) {
+			socket.send('{"type":"room","room":"6969"}'); 
+		};
+
+		socket.onmessage = function (e) {
+			var msg;
+			try {
+				msg = JSON.parse(e.data);
+			} catch(e) {
+				console.log(e); // error in the above string (in this case, yes)!
+			}
+			
+			//if(typeof msg.state != "undefined"){
+				//if(typeof msg.state != "Running"){
+					//document.getElementById("Start").disabled = true
+					//document.getElementById("Stop").disabled = false
+					//document.getElementById("Estop").disabled = false
+					// }
+					// if(typeof msg.state != "Stopped"){document.getElementById("Start").disabled = false
+					//document.getElementById("Stop").disabled = true
+					//document.getElementById("Estop").disabled = true};
+				
+			//}
+			
+		}
+
+
+
+ 
+	
+</script>
+
+	<script>
+		
+		
+		
+
+		// Update the current slider value (each time you drag the slider handle)
+		document.getElementById("Start").onclick = function(){
+			socket.send(JSON.stringify( {"type":"data","data":{"button":{"type":"Start"}}} ));
+		}
+		document.getElementById("Stop").onclick = function(){
+			socket.send(JSON.stringify( {"type":"data","data":{"button":{"type":"Stop"}}}  ));
+		};
+		document.getElementById("Estop").onclick = function(){
+			socket.send(JSON.stringify( {"type":"data","data":{"button":{"type":"OhShit"}}}  ));
+		};
+
+
+		
+		
+		
+		var opts = {
+			angle: -0.15, // The span of the gauge arc
+			lineWidth: 0.44, // The line thickness
+			radiusScale: 1, // Relative radius
+			pointer: {
+				length: 0.56, // // Relative to gauge radius
+				strokeWidth: 0.035, // The thickness
+				color: '#ff7700' // Fill color
+			},
+			limitMax: false,     // If false, max value increases automatically if value > maxValue
+			limitMin: false,     // If true, the min value of the gauge will be fixed
+			colorStart: '#ff0000',   // Colors
+			colorStop: '#D2DAB7',    // just experiment with them
+			strokeColor: '#E0E0E0',  // to see which ones work best for you
+			generateGradient: true,
+			highDpiSupport: true,     // High resolution support
+			// renderTicks is Optional
+			renderTicks: {
+				divisions: 6,
+				divWidth: 1.1,
+				divLength: 0.5,
+				divColor: '#333333',
+				subDivisions: 3,
+				subLength: 0.2,
+				subWidth: 0.6,
+				subColor: '#666666'
+			}
+
+		};
+		//var target = document.getElementById('guage'); // your canvas element
+		//var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+		//gauge.maxValue = 120; // set max gauge value
+		//gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+		//gauge.animationSpeed = 80; // set animation speed (32 is default value)
+		//gauge.set(0); // set actual value
+	</script>
+</body>
