@@ -48,16 +48,19 @@ OH SHIT!
 			} catch(e) {
 				console.log(e); // error in the above string (in this case, yes)!
 			}
-			
-			//if(typeof msg.state != "undefined"){
-				//if(typeof msg.state != "Running"){
-					//document.getElementById("Start").disabled = true
-					//document.getElementById("Stop").disabled = false
-					//document.getElementById("Estop").disabled = false
-					// }
-					// if(typeof msg.state != "Stopped"){document.getElementById("Start").disabled = false
-					//document.getElementById("Stop").disabled = true
-					//document.getElementById("Estop").disabled = true};
+			if(msg.type == "status"){
+			if(msg.status == "connected"){socket.send(JSON.stringify( {"type":"data","data":{"cmd":"RefreshState"} ));
+						     }
+			}
+			if(msg.data != ""){
+				if( msg.data == "Stopped"){
+					document.getElementById("Start").disabled = true
+					document.getElementById("Stop").disabled = false
+					document.getElementById("Estop").disabled = false
+					 }
+					 if(msg.data == "Running"){document.getElementById("Start").disabled = false
+					document.getElementById("Stop").disabled = true
+					document.getElementById("Estop").disabled = true};
 				
 			//}
 			
